@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  employee: one
+  status: MyString
+  to: 2019-03-15
+  from: 2019-03-15
+  reason: MyText
+  category: MyString
+
+two:
+  employee: two
+  status: MyString
+  to: 2019-03-15
+  from: 2019-03-15
+  reason: MyText
+  category: MyString

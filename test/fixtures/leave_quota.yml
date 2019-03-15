@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  leave_category: MyString
+  leave_number: 1
+  employee: one
+
+two:
+  leave_category: MyString
+  leave_number: 1
+  employee: two
