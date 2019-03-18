@@ -1,0 +1,12 @@
+<div class='container'>
+  <div class="card-columns">
+    <% @leave_quota.each do |leave_quotum| %>
+    <div class="card" style="height: 6rem;">
+      <div class="p-2" style="height: 5rem;">
+        <h5 class="card-title" ><%= leave_quotum.leave_category %></h5>
+        <h3 class="card-body" ><%= leave_quotum.leave_number %></h3>
+      </div>      
+    </div>
+    <% end %> 
+  </div>   
+</div>
