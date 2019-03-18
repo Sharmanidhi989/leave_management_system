@@ -1,28 +1,18 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <%= link_to('Leave Management System', root_path, class: 'navbar-brand') %>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
+<nav class="navbar navbar-expand-xl navbar-dark bg-dark pmd-navbar pmd-z-depth fixed-top">
+  <%= link_to('Leave Management System', root_path, class: 'navi navbar-brand') %>
+  <div class="dropdown pmd-dropdown pmd-user-info ml-auto">
+    <a href="javascript:void(0);" class="btn-user  media align-items-center" data-toggle="dropdown" data-sidebar="true" aria-expanded="false">
+        <a class="nav-link" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">
+        <button type="button" class="btn btn-outline-dark">Menu</button>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+      <% if employee_signed_in? %>
+        <%= link_to('Settings', edit_employee_registration_path, class: "dropdown-item")%>
+        <%= link_to 'Logout' , destroy_employee_session_path, method: :delete , class: "dropdown-item" %>
+      <% else %>
+        <%= link_to 'Login', new_employee_session_path, class: "dropdown-item" %>  
+      <% end %>
     </ul>
   </div>
 </nav>
