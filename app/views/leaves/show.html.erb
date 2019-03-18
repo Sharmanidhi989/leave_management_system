@@ -1,1 +1,25 @@
-show.html.erb
+<div class="container">
+  <center><h2>Leave Status</h2></center>
+  <table class="table">
+     <thead>
+       <tr>
+         <th>Id</th>
+         <th>Employee Id</th>
+         <th>From</th>
+         <th>Reason</th>
+         <th>Category</th>
+         <th>Status</th>
+       </tr>
+     </thead>
+     <tbody>
+       <tr>
+         <td><%= @leave.id %></td>
+         <td><%= @leave.employee_id %></td>
+         <td><%= @leave.from %></td>
+         <td><%= @leave.to %></td>
+         <td><%= @leave.category %></td>
+         <td><%= @leave.status %></td>
+       </tr>
+     </tbody>
+   </table>
+</div>

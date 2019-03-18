@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_15_123230) do
+ActiveRecord::Schema.define(version: 2019_03_18_102928) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 2019_03_15_123230) do
 
   create_table "leaves", force: :cascade do |t|
     t.integer "employee_id"
-    t.string "status"
+    t.integer "status"
     t.date "to"
     t.date "from"
     t.text "reason"
