@@ -1,7 +1,6 @@
 class Leave < ApplicationRecord
   belongs_to :employee
   validates :reason, presence: true
-  validates :category, presence: true
   validate :from_leave_date, on: :create
   validate :to_leave_date, on: :create
   
@@ -16,10 +15,12 @@ class Leave < ApplicationRecord
       errors.add(:to, "Leave dates cannot be in the past")
     end
   end
+  
   after_initialize do
     if self.new_record?
       self.status = :pending
     end
   end
+
   enum status: [:pending, :approved, :denied]
 end

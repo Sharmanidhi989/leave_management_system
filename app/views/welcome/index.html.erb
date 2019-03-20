@@ -3,6 +3,7 @@
     <h2>Welcome <%= current_employee.first_name %></h2>
     Leave <%= link_to 'Apply', new_leave_path %>
     Leave <%= link_to 'Your Leave', leave_quota_path %>
+    Summary <%= link_to 'Summary', leaves_path %>
   <% else %>
     <%= link_to 'Login', new_employee_session_path, class: "dropdown-item" %>  
   <% end %>
