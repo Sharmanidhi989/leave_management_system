@@ -2,6 +2,7 @@ class Leave < ApplicationRecord
   belongs_to :employee
   belongs_to :leave_quotum
   validates :reason, presence: true
+  validates :leave_quotum_id, presence: true
   validate :from_leave_date, on: :create
   validate :to_leave_date, on: :create
   
@@ -18,15 +19,14 @@ class Leave < ApplicationRecord
   end
   
   before_save do
-    if self.status == 'approved'
+    if self.approved?
       self.leave_quotum.leave_number -= 1
+      self.leave_quotum.save!
     end
   end
   
   after_initialize do
-    if self.new_record?
-      self.status = :pending
-    end
+    self.status = :pending if self.new_record?
   end
 
   enum status: [:pending, :approved, :denied]

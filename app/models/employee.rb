@@ -5,8 +5,4 @@ class Employee < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :leaves
   has_many :leave_quota
-  protected
-     def password_required?
-       confirmed? ? super : false
-     end
 end
