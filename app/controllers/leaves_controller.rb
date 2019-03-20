@@ -27,6 +27,6 @@ class LeavesController < ApplicationController
 
   private
     def leave_params
-      params.require(:leave).permit(:status, :to, :from, :reason)
+      params.require(:leave).permit(:status, :to, :from, :reason, :leave_quotum_id)
     end
 end

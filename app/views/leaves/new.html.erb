@@ -1,10 +1,3 @@
-<%= form_tag() do  %>
-  <%#= collection_select(:leave_quotum, :leave_number, :leave_category, @leave_quota, :leave_number, :leave_category ) %>
-  <%= submit_tag('Check')  %>
-<% end %>
-
-<%= %>
-
 <div class="container">
   <div class="row justify-content-center">
     <div class="card col-md-6 p-3 shadow rounded">
@@ -25,7 +18,12 @@
             </ul>
           </div>
         <% end %>
-
+        <div class="control-group">
+             <%= f.label :type, class: 'control-label' %>
+             <div class="control-group">
+               <%= collection_select( :leave, :leave_quotum_id, @leave_quota, :id, :leave_category, {}, { :multiple => false }) %>
+             </div>
+           </div>
         <div>
           <div class='form-group'>
             Duration <br>

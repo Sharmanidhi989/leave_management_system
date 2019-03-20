@@ -4,5 +4,9 @@ class Employee < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :leaves
-  has_one :leave_quotum
+  has_many :leave_quota
+  protected
+     def password_required?
+       confirmed? ? super : false
+     end
 end
