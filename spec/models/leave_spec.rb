@@ -22,28 +22,42 @@ FactoryBot.define do
 end
 
 RSpec.describe Leave, type: :model do
-  
-  # it "is invalid without an employee_id" do
-  #   leave = Leave.create(employee_id: nil, to: '07/07/2019', from: '07/07/2019', reason: "not feeling well")
-  #   expect(leave).to_not   be_valid
-  # end
+  # negative test cases
+
+  it "is invalid without an employee_id" do
+    leave_quotum = create(:leave_quotum)
+    leave = Leave.create(employee_id: nil, to: '07/07/2019', from: '07/07/2019', reason: "not feeling well", leave_quotum_id: leave_quotum.id)
+    expect(leave).to_not   be_valid
+  end
   
   it "is invalid without to" do
     employee = create(:employee)
     leave_quotum = create(:leave_quotum)
-    leave = Leave.create!(employee_id: employee.id , to: nil, from: '07/07/2019', reason: "not feeling well", leave_quotum_id: leave_quotum.id)
-    expect(leave).to_not be_valid
-  end
-  
-  it "is invalid without from" do
-    employee = create(:employee)
-    leave_quotum = create(:leave_quotum)
-    leave = Leave.create!(employee_id: employee.id , to:'07/07/2019', from: nil , reason: "not feeling well", leave_quotum_id: leave_quotum.id)
+    leave = Leave.create(employee_id: employee.id , to: nil, from: '07/07/2019', reason: "not feeling well", leave_quotum_id: leave_quotum.id)
     expect(leave).to_not be_valid
   end
 
-  # it "is invalid without a reason" do
-  #   leave = Leave.create(employee_id: '1' , to: '07/07/2019', from: nil, reason: "not feeling well")
-  #   expect(leave).to_not be_valid
-  # end
+  it "is invalid without from" do
+    employee = create(:employee)
+    leave_quotum = create(:leave_quotum)
+    leave = Leave.create(employee_id: employee.id , to:'07/07/2019', from: nil , reason: "not feeling well", leave_quotum_id: leave_quotum.id)
+    expect(leave).to_not be_valid
+  end
+
+  it "is invalid without a reason" do
+    employee = create(:employee)
+    leave_quotum = create(:leave_quotum)
+    leave = Leave.create(employee_id: employee.id , to:'07/07/2019', from: '07/07/2019' , leave_quotum_id: leave_quotum.id)
+    expect(leave).to_not be_valid
+  end
+
+  # positive test cases
+
+  it "is valid with duration to" do
+    employee = create(:employee)
+    leave_quotum = create(:leave_quotum)
+    leave = Leave.create(employee_id: employee.id , to: '09/07/2019', from: '07/07/2019', reason: "not feeling well", leave_quotum_id: leave_quotum.id)
+    expect(leave).to be_valid
+  end
+
 end
