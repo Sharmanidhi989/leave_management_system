@@ -13,6 +13,7 @@ class LeavesController < ApplicationController
 
   def create
     @leave = Leave.create(leave_params)
+    @leave_quota = current_employee.leave_quota
     @leave.employee_id = current_employee.id
     if @leave.save
       redirect_to @leave
