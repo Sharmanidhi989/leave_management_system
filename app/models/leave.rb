@@ -2,6 +2,8 @@ class Leave < ApplicationRecord
   belongs_to :employee
   belongs_to :leave_quotum
   validates :reason, presence: true
+  validates :to, presence: true
+  validates :from, presence: true
   validates :leave_quotum_id, presence: true
   validate :from_leave_date, on: :create
   validate :to_leave_date, on: :create
