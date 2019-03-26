@@ -20,9 +20,18 @@ class Leave < ApplicationRecord
     end
   end
   
+  after_update do
+    if self.canceled?
+      deduction = self.to - self.from
+      self.leave_quotum.leave_number += deduction.to_i
+      self.leave_quotum.save!
+    end
+  end
+  
   before_save do
     if self.approved?
-      self.leave_quotum.leave_number -= 1
+      deduction = self.to - self.from
+      self.leave_quotum.leave_number -= deduction.to_i
       self.leave_quotum.save!
     end
   end
@@ -31,5 +40,5 @@ class Leave < ApplicationRecord
     self.status = :pending if self.new_record?
   end
 
-  enum status: [:pending, :approved, :denied]
+  enum status: [ :pending, :approved, :denied, :canceled ]
 end

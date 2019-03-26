@@ -6,7 +6,6 @@ class LeavesController < ApplicationController
   end
 
   def new
-    
     @leave = Leave.new
     @leave_quota = current_employee.leave_quota
   end
@@ -21,7 +20,20 @@ class LeavesController < ApplicationController
       render 'new'
     end
   end
+  
+  def edit
+    @leave = Leave.find(params[:id])
+  end
 
+  def update
+    @leave = Leave.find(params[:id])   
+    if @leave.update(leave_params)
+      redirect_to @leave
+    else
+      render 'edit'
+    end
+  end
+  
   def show
     @leave = Leave.find(params[:id])
   end
