@@ -21,6 +21,8 @@
          <td><%= @leave.status %></td>
        </tr>
      </tbody>
-   </table>
-   <%= link_to 'Cancel', edit_leave_path(@leave),class: "btn btn-primary" %>
+  </table>
+  <% if @leave.approved? %>
+    <%= link_to 'Cancel', edit_leave_path(@leave),class: "btn btn-danger" %>
+  <% end %>
 </div>
