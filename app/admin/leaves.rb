@@ -12,4 +12,24 @@ ActiveAdmin.register Leave do
     end
     actions
   end
+  controller do
+    def update
+      @leave = Leave.find(params[:id])
+      if @leave.update(leave_params)
+        redirect_to admin_leave_path(@leave)
+      else
+        render 'edit'
+      end
+      if @leave.approved?
+        LeaveMailer.approved_email(@leave).deliver_now
+      end
+      if @leave.canceled?
+        LeaveMailer.canceled_leave(@leave).deliver_now
+      end
+    end
+
+    def leave_params
+      params[:leave].permit(:employee_id, :status, :to, :from, :leave_quotum_id, :reason, :id)
+    end
+  end
 end
