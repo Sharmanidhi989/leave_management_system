@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  # devise_for :employees, controllers: {
-  #        sessions: 'employees/sessions'
-  #      }
   devise_for :employees
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)

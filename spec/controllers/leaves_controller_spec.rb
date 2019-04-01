@@ -31,5 +31,14 @@ RSpec.describe LeavesController, type: :controller do
     end
   end
 
-  
+  describe "GET index" do
+    it "it assigns @leaves of current employee" do
+      @request.env['devise.mapping'] = Devise.mappings[:employee]
+      @current_employee = create(:employee)
+      sign_in :employee
+      leaves = Leave.all.where(employee_id: @current_employee.id)
+      get :index
+      expect(response).to have_http_status(:found)
+    end
+  end
 end

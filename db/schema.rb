@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_18_102928) do
+ActiveRecord::Schema.define(version: 2019_03_20_084647) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -53,7 +53,19 @@ ActiveRecord::Schema.define(version: 2019_03_18_102928) do
     t.decimal "salary"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "invitation_token"
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.integer "invitation_limit"
+    t.string "invited_by_type"
+    t.integer "invited_by_id"
+    t.integer "invitations_count", default: 0
     t.index ["email"], name: "index_employees_on_email", unique: true
+    t.index ["invitation_token"], name: "index_employees_on_invitation_token", unique: true
+    t.index ["invitations_count"], name: "index_employees_on_invitations_count"
+    t.index ["invited_by_id"], name: "index_employees_on_invited_by_id"
+    t.index ["invited_by_type", "invited_by_id"], name: "index_employees_on_invited_by_type_and_invited_by_id"
     t.index ["reset_password_token"], name: "index_employees_on_reset_password_token", unique: true
   end
 
@@ -72,9 +84,9 @@ ActiveRecord::Schema.define(version: 2019_03_18_102928) do
     t.date "to"
     t.date "from"
     t.text "reason"
-    t.string "category"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "leave_quotum_id"
     t.index ["employee_id"], name: "index_leaves_on_employee_id"
   end
 
