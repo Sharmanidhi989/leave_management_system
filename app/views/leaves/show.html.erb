@@ -1,28 +1,33 @@
 <div class="container">
-  <center><h2>Leave Status</h2></center>
-  <table class="table">
-     <thead>
-       <tr>
-         <th>Id</th>
-         <th>Employee Id</th>
-         <th>From</th>
-         <th>To</th>
-         <th>Reason</th>
-         <th>Status</th>
-       </tr>
-     </thead>
-     <tbody>
-       <tr>
-         <td><%= @leave.id %></td>
-         <td><%= @leave.employee_id %></td>
-         <td><%= @leave.from %></td>
-         <td><%= @leave.to %></td>
-         <td><%= @leave.reason %></td>
-         <td><%= @leave.status %></td>
-       </tr>
-     </tbody>
-  </table>
-  <% if @leave.approved? %>
-    <%= link_to 'Cancel', edit_leave_path(@leave),class: "btn btn-danger" %>
-  <% end %>
+  <div class="container">
+  <div class="row justify-content-center">
+    <div class="card col-md-4 p-3 shadow rounded">
+      <center><h3 class="card-header">Leave Status</h3></center>
+      <table>
+        <tr>
+          <td>ID : </td>
+          <td><%= @leave.id %></td>
+        </tr>
+        <tr>
+          <td>Status: </td>
+          <td><%= @leave.status %></td>
+        </tr>
+        <tr>
+          <td>Duration: </td>
+          <td><%= @leave.from %> to <%= @leave.to %></td>
+        </tr>
+        <tr>
+          <td>Total Days: </td>
+          <td><%= (@leave.to - @leave.from).to_i %></td>
+        </tr>
+        <tr>
+          <td>Reason: </td>
+          <td><%= @leave.reason %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
 </div>
+<% if @leave.approved? %>
+  <%= link_to 'Cancel', edit_leave_path(@leave),class: "btn btn-danger" %>
+<% end %>
