@@ -21,8 +21,10 @@
           <td><%= leave.reason %></td>
           <td><%= leave.status %></td>
           <td>
-            <% if leave.approved? %>
-              <%= link_to 'Cancel', edit_leave_path(leave),class: "btn btn-danger" %>
+            <% if leave.approved? %> 
+              <% unless leave.has_requested_cancellation %>
+                <%= link_to 'Cancel', edit_leave_path(leave),class: "btn btn-danger" %>
+              <% end %>
             <% end %>
           </td>
         </tr>
