@@ -4,11 +4,10 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h3>Hey! <%= @leave.employee.first_name %> Your leave has been successfully cancelled.</h3>
+    <h3><%= @leave.employee.first_name %> has been cancelled successfully.</h3>
     <h3>Reason: <%= @leave.reason %> </h3>
     <h3>Duration: <%= @leave.from %> to <%= @leave.to %> </h3>
     <h3>Status: <%= @leave.status %></h3>
     <div>Check your leave status below <%= link_to 'Summary', leaves_url %></div>
   </body>
 </html>
-

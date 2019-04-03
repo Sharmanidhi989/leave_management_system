@@ -9,18 +9,21 @@ class LeaveMailer < ApplicationMailer
   
   def canceled_leave(leave)
     @leave = leave
-    mail(to: @leave.employee.email, subject: 'Leave Cancellation.')
-  end
-  
-  def review_leave(leave, admin)
-    @leave = leave
-    @admin = admin
-    mail(to: @admin.email, subject:'Leave Application')
+    mail(to: @leave.employee.email, subject: 'Leave has been Cancelled.')
   end
 
   # mails send by employee 
   def apply_leave(leave)
     @leave = leave
-    mail(to: @leave.employee.email, subject: 'Leave Application')
+    @recipients = AdminUser.all
+    emails = @recipients.collect(&:email).join(",")
+    mail(to: emails , subject: 'Leave Application')
+  end
+
+  def review_leave(leave)
+    @leave = leave
+    @recipients = AdminUser.all
+    emails = @recipients.collect(&:email).join(",")
+    mail(to: emails , subject: 'Request to Leave Cancellation')
   end
 end

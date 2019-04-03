@@ -5,10 +5,10 @@
   </head>
   <body>
     <h3>Hey!</h3> 
-    <h2><%= @leave.employee.first_name %> has applied for leave.</h2>
+    <h2><%= @leave.employee.first_name %> has applied for leave cancellation.</h2>
     <div>Reason: <%= @leave.reason %> </div>
     <div>Duration: <%= @leave.from %> to <%= @leave.to %> </div>
     <div>Status: <%= @leave.status %></div>
-    <div>Approve the leave via following link. <%= link_to 'Approve', edit_admin_leave_url(@leave) %></div>
+    <div>Approve the cancellation via following link. <%= link_to 'Cancel', edit_admin_leave_url(@leave) %></div>
   </body>
 </html>

@@ -16,15 +16,15 @@ ActiveAdmin.register Leave do
     def update
       @leave = Leave.find(params[:id])
       if @leave.update(leave_params)
-        redirect_to admin_leave_path(@leave)
-      else
-        render 'edit'
-      end
-      if @leave.approved?
+        if @leave.approved?
         LeaveMailer.approved_email(@leave).deliver_now
       end
       if @leave.canceled?
         LeaveMailer.canceled_leave(@leave).deliver_now
+      end
+        redirect_to admin_leave_path(@leave)
+      else
+        render 'edit'
       end
     end
 
