@@ -16,6 +16,7 @@ class LeavesController < ApplicationController
     @leave.employee_id = current_employee.id
     if @leave.save
       redirect_to @leave
+      LeaveMailer.apply_leave(@leave).deliver_now
     else
       render 'new'
     end
@@ -26,7 +27,9 @@ class LeavesController < ApplicationController
   end
 
   def update
-    @leave = Leave.find(params[:id])   
+    @leave = Leave.find(params[:id])
+    @leave.has_requested_cancellation = true
+    LeaveMailer.review_leave(@leave).deliver_now
     if @leave.update(leave_params)
       redirect_to @leave
     else
@@ -40,6 +43,6 @@ class LeavesController < ApplicationController
 
   private
     def leave_params
-      params.require(:leave).permit(:status, :to, :from, :reason, :leave_quotum_id)
+      params.require(:leave).permit(:status, :to, :from, :reason, :leave_quotum_id, :half_day)
     end
 end

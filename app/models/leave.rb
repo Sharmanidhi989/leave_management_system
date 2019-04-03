@@ -7,9 +7,16 @@ class Leave < ApplicationRecord
   validates :leave_quotum_id, presence: true
   validate :from_leave_date, on: :create
   validate :to_leave_date, on: :create
+  validate :from_greater_than_to, on: :create
   
+  def from_greater_than_to
+    if from.present? && to.present? && from > to
+      errors.add(:from, "leave days cannot be negative.")
+    end
+  end
+
   def from_leave_date
-    if from.present? && from <= Date.today 
+    if from.present? && from <= Date.today
       errors.add(:from, "Leave dates cannot be in the past")
     end
   end
@@ -22,23 +29,25 @@ class Leave < ApplicationRecord
   
   after_update do
     if self.canceled?
-      deduction = self.to - self.from
-      self.leave_quotum.leave_number += deduction.to_i
+      byebug
+      days = (self.to - self.from).to_i + self.half_day
+      byebug
+      self.leave_quotum.count += days
       self.leave_quotum.save!
     end
   end
   
   before_save do
     if self.approved?
-      deduction = self.to - self.from
-      self.leave_quotum.leave_number -= deduction.to_i
+      days = (self.to - self.from).to_i + self.half_day
+      self.leave_quotum.count -= days
       self.leave_quotum.save!
     end
   end
-  
+
   after_initialize do
     self.status = :pending if self.new_record?
   end
 
-  enum status: [ :pending, :approved, :denied, :canceled ]
+  enum status: [ :pending, :approved, :canceled ]
 end

@@ -18,7 +18,7 @@
         </tr>
         <tr>
           <td>Total Days: </td>
-          <td><%= (@leave.to - @leave.from).to_i %></td>
+          <td><%= (@leave.to - @leave.from) + @leave.half_day %></td>
         </tr>
         <tr>
           <td>Reason: </td>
@@ -28,6 +28,8 @@
     </div>
   </div>
 </div>
-<% if @leave.approved? %>
-  <%= link_to 'Cancel', edit_leave_path(@leave),class: "btn btn-danger" %>
+<% if @leave.approved? %> 
+  <% unless @leave.has_requested_cancellation %>
+    <%= link_to 'Cancel', edit_leave_path(@leave),class: "btn btn-danger" %>
+  <% end %>
 <% end %>

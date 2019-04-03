@@ -3,8 +3,8 @@ class Employee < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :invite_for => 2.weeks
-  has_many :leaves
-  has_many :leave_quota
+  has_many :leaves, dependent: :destroy
+  has_many :leave_quota, dependent: :destroy
   validates :email , uniqueness: true
   # checks is an email already exists or not
   def email_valid?

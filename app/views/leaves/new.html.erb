@@ -28,6 +28,10 @@
           <%= f.date_field :to , class: 'form-control' %>
         </div>
         <div class='form-group'>
+          <%= f.label :half_day %>
+          <%= f.check_box(:half_day, {}, "0.5")%>
+        </div>
+        <div class='form-group'>
           <%= f.label :reason %>
           <%= f.text_area :reason , class: 'form-control' %>
         </div>
