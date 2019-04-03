@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <% for leave in @leaves %>
+      <% for leave in @leaves.order("created_at DESC") %>
         <tr>
           <td><%= leave.id %></td>
           <td><%= leave.employee_id %></td>
