@@ -73,6 +73,7 @@ gem 'hirb'
 gem 'factory_bot_rails'
 gem 'devise_invitable', '~> 2.0.0'
 gem 'rails-controller-testing'
+gem 'will_paginate'
 gem 'simplecov', require: false, group: :test
 group :production do 
   gem 'pg'

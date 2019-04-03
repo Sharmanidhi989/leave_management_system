@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @leaves.each do |leave| %>
+      <% for leave in @leaves %>
         <tr>
           <td><%= leave.id %></td>
           <td><%= leave.employee_id %></td>
@@ -31,4 +31,5 @@
       <% end %>
     </tbody>
   </table>
+  <%= will_paginate @leaves %>
 </div>

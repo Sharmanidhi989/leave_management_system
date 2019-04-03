@@ -2,7 +2,7 @@ class LeavesController < ApplicationController
   before_action :authenticate_employee!
 
   def index
-    @leaves = Leave.all.where(employee_id: current_employee.id)
+    @leaves = Leave.all.where(employee_id: current_employee.id).page(params[:page]).per_page(5)
   end
 
   def new
