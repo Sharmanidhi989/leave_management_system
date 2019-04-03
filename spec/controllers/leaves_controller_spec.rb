@@ -31,7 +31,7 @@ RSpec.describe LeavesController, type: :controller do
     end
   end
 
-  describe "GET index" do
+  describe "GET #index" do
     it "it assigns @leaves of current employee" do
       @request.env['devise.mapping'] = Devise.mappings[:employee]
       @current_employee = create(:employee)
@@ -39,6 +39,31 @@ RSpec.describe LeavesController, type: :controller do
       leaves = Leave.all.where(employee_id: @current_employee.id)
       get :index
       expect(response).to have_http_status(:found)
+    end
+  end
+
+  describe "GET #edit" do
+    it "it fetchs @leave for the current id" do
+      @request.env['devise.mapping'] = Devise.mappings[:employee]
+      @current_employee = create(:employee)
+      sign_in :employee
+      @leave_quotum = create(:leave_quotum)
+      @leave = create(:leave)
+      redirect_to edit_leave_url(@leave)
+      expect(response).to have_http_status(200)
+    end
+  end
+
+  describe "POST #update" do
+    it "it updates @leave for the current id" do
+      @request.env['devise.mapping'] = Devise.mappings[:employee]
+      @current_employee = create(:employee)
+      sign_in :employee
+      @leave_quotum = create(:leave_quotum)
+      @leave = create(:leave)
+      @leave.update!(status: 1)
+      redirect_to leave_url(@leave)
+      expect(response).to have_http_status(200)
     end
   end
 end

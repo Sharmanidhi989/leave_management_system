@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_20_084647) do
+ActiveRecord::Schema.define(version: 2019_04_02_090010) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -71,10 +71,10 @@ ActiveRecord::Schema.define(version: 2019_03_20_084647) do
 
   create_table "leave_quota", force: :cascade do |t|
     t.string "leave_category"
-    t.integer "leave_number"
     t.integer "employee_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "count"
     t.index ["employee_id"], name: "index_leave_quota_on_employee_id"
   end
 
@@ -87,6 +87,8 @@ ActiveRecord::Schema.define(version: 2019_03_20_084647) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "leave_quotum_id"
+    t.boolean "has_requested_cancellation", default: false
+    t.decimal "half_day", default: "0.0"
     t.index ["employee_id"], name: "index_leaves_on_employee_id"
   end
 
