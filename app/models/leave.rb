@@ -29,9 +29,7 @@ class Leave < ApplicationRecord
   
   after_update do
     if self.canceled?
-      byebug
       days = (self.to - self.from).to_i + self.half_day
-      byebug
       self.leave_quotum.count += days
       self.leave_quotum.save!
     end
