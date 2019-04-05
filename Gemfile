@@ -64,7 +64,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'rubocop'
 gem 'devise'
 gem 'activeadmin'
-gem 'bootstrap', '~> 4.0.0'
+gem "bootstrap", ">= 4.3.1"
 gem 'jquery-rails'
 gem 'mini_racer'
 gem 'rspec-rails', '~> 3.8'
