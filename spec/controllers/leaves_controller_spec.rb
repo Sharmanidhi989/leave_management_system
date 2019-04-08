@@ -1,10 +1,5 @@
 require 'rails_helper'
 RSpec.describe LeavesController, type: :controller do
-  include Devise::Test::ControllerHelpers
-  include Warden::Test::Helpers
-  include Devise::Test::IntegrationHelpers
-  Warden.test_mode!
-
   describe "authenticated employee" do
     before(:all) do
       login_as(employee, scope: :employee)
