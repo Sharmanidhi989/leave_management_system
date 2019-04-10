@@ -5,7 +5,7 @@ feature 'creating a new leave', type: :feature do
   background do
     Employee.create(email: 'employee@example.com', password: 'caplin')
   end
-
+  
   # positive test cases
 
   scenario 'it visits index of leave' do
@@ -18,14 +18,13 @@ feature 'creating a new leave', type: :feature do
   end
 
   scenario 'it visits show of @leave' do
-    visit leaves_path
-    fill_in 'Email', with: 'employee@example.com'
-    fill_in 'Password', with: 'caplin'
-    click_button 'Log in'
     @employee = create(:employee)
     @leave_quotum = create(:leave_quotum)
     @leave = create(:leave)
     visit leave_path(@leave)
+    fill_in 'Email', with: 'employee@example.com'
+    fill_in 'Password', with: 'caplin'
+    click_button 'Log in'
     expect(page).to have_content 'Leave Status'
   end
 
@@ -37,7 +36,6 @@ feature 'creating a new leave', type: :feature do
     fill_in 'Email', with: 'employee@example.com'
     fill_in 'Password', with: 'caplin'
     click_button 'Log in'
-    visit edit_leave_path(@leave)
     fill_in 'Reason' , with: 'very sick'
     click_button 'Update Leave' 
     expect(page).to have_content 'Leave Status'
@@ -50,7 +48,6 @@ feature 'creating a new leave', type: :feature do
     fill_in 'Email', with: @employee.email
     fill_in 'Password', with: @employee.password
     click_button 'Log in'
-    visit new_leave_path
     find_field('leave_leave_quotum_id').find("option[value='1']").text
     fill_in 'From', with: '12/12/2019'
     fill_in 'To', with: '12/12/2019'
@@ -67,7 +64,6 @@ feature 'creating a new leave', type: :feature do
     fill_in 'Email', with: @employee.email
     fill_in 'Password', with: @employee.password
     click_button 'Log in'
-    visit new_leave_path
     find_field('leave_leave_quotum_id').find("option[value='1']").text
     fill_in 'From', with: '12/12/2019'
     fill_in 'To', with: '11/11/2019'

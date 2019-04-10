@@ -1,4 +1,4 @@
-class LeaveMailer < ApplicationMailer
+  class LeaveMailer < ApplicationMailer
   default from: 'test0mailer0gen@gmail.com'
 
   # mails send by Admin

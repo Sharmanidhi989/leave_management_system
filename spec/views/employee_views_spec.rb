@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'capybara/rails'
 
 feature "Signing in" do
   background do
@@ -24,6 +23,7 @@ feature "Signing in" do
       fill_in 'Password', with: 'caplin'
     end
     click_button 'Log in'
+    click_button 'Menu'
     click_link 'Logout'
     expect(page).to have_content 'Signed out successfully.'
   end
@@ -41,17 +41,24 @@ feature "Signing in" do
 end
 
 feature "Reseting password" do
-
+  employee = Employee.create(email: 'one@example.com', password: '123456')
   scenario 'it should send reset password instructions' do
-      employee = Employee.create(email: 'one@example.com', password: '123456')
-      visit new_employee_session_path
+    visit new_employee_session_path
 
-      click_link 'Forgot your password?'
-      fill_in 'Email', with: employee.email
+    click_link 'Forgot your password?'
+    fill_in 'Email', with: employee.email
 
-      expect do
-        click_button 'Send me reset password instructions'
-      end.to change(ActionMailer::Base.deliveries, :count).by(1)
+    expect do
+      click_button 'Send me reset password instructions'
+    end.to change(ActionMailer::Base.deliveries, :count).by(1)
+  end
+
+  scenario "it should reset the password" do
+    token = Devise.token_generator.generate(Employee, :reset_password_token)
+    visit "/employees/password/edit?reset_password_token=#{token}"
+    fill_in 'New password', with: '12345678'
+    fill_in 'Confirm new password', with: '12345678'
+    click_button 'Change my password'
   end
 end
 
@@ -67,6 +74,7 @@ feature "Update Settings" do
       fill_in 'Password', with: '123456'
     end
     click_button 'Log in'
+    click_button 'Menu'
     click_link 'Settings'
     visit edit_employee_registration_path
     fill_in 'First name', with: 'Nidhi'
@@ -84,6 +92,7 @@ feature "Update Settings" do
       fill_in 'Password', with: '123456'
     end
     click_button 'Log in'
+    click_button 'Menu'
     click_link 'Settings'
     visit edit_employee_registration_path
     fill_in 'First name', with: 'Nidhi'
