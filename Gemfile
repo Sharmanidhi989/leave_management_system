@@ -77,6 +77,7 @@ gem 'rails-controller-testing'
 gem 'will_paginate'
 gem 'active_admin_theme'
 gem 'simplecov', require: false, group: :test
+gem 'redis', '~> 4.0'
 group :production do 
   gem 'pg'
   gem 'rails_12factor'

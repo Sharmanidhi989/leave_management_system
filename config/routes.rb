@@ -10,5 +10,6 @@ Rails.application.routes.draw do
     get 'employees/edit' => 'devise/registrations#edit', :as => 'edit_employee_registration'
     put 'employees' => 'devise/registrations#update', :as => 'employee_registration'
   end
+  mount ActionCable.server => '/cable'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
