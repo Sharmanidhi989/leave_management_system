@@ -43,4 +43,6 @@
     <% end %>
   </div>
 </nav>
+<% if employee_signed_in? %>
 <div id='employee_id' style="color: white;"><%= current_employee.id %></div>
+<% end %>
