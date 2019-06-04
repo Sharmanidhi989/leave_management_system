@@ -1,7 +1,7 @@
 <div class="container">
   <% if employee_signed_in? %>
     <div class="jumbotron bg-light" >
-      <h3 class="display-4">Welcome! <%= current_employee.first_name %></h3>
+      <h3 class="display-4"><%= image_tag current_employee&.image , class: 'avatar' %> Welcome! <%= current_employee.first_name %></h3>
       <p class="lead"><%= link_to 'Apply Leave', new_leave_path, :class =>"btn btn-outline-dark btn-lg" %></p>
       <hr class="my-4">
       <p class="lead"><%= link_to 'Leave Quota', leave_quota_path, :class =>"btn btn-outline-dark btn-lg" %></p>

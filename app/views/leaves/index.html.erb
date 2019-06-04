@@ -1,35 +1,8 @@
 <div class='container'>
-  <center><h2>Summary</h2></center>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>Employee Id</th>
-        <th>From</th>
-        <th>To</th>
-        <th>Reason</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% for leave in @leaves.order("created_at DESC") %>
-        <tr>
-          <td><%= leave.id %></td>
-          <td><%= leave.employee_id %></td>
-          <td><%= leave.from %></td>
-          <td><%= leave.to %></td>
-          <td><%= leave.reason %></td>
-          <td><%= leave.status %></td>
-          <td>
-            <% if leave.approved? %> 
-              <% unless leave.has_requested_cancellation %>
-                <%= link_to 'Cancel', edit_leave_path(leave),class: "btn btn-danger" %>
-              <% end %>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <%= will_paginate @leaves %>
+  <div class= "row">
+    <%= select_tag "Leaves", options_for_select(Leave::LEAVETYPES.collect{  |u| [u ] }), {id: 'searchleave', class: 'form-control col-sm-2', include_blank: true} %>
+  </div>
+  <div id= 'search-leave'>
+    <%= render 'index', leaves: @leaves %>
+  </div>
 </div>

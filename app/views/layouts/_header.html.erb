@@ -2,47 +2,17 @@
   <%= link_to('Leave Management System', root_path, class: 'navi navbar-brand') %>
   <div class="dropdown pmd-dropdown pmd-user-info ml-auto">
     <a href="javascript:void(0);" class="btn-user  media align-items-center" data-toggle="dropdown" data-sidebar="true" aria-expanded="false">
-      <a class="nav-link" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
-      aria-expanded="false">
-      <button type="button" class="btn btn-outline-light">Menu</button>
+        <a class="nav-link" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">
+        <button type="button" class="btn btn-outline-light">Menu</button>
     </a>
     <ul class="dropdown-menu dropdown-menu-right" role="menu">
       <% if employee_signed_in? %>
-      <%= link_to('Settings', edit_employee_registration_path, class: "dropdown-item")%>
-      <%= link_to 'Logout' , destroy_employee_session_path, method: :delete , class: "dropdown-item" %>
+        <%= link_to('Settings', edit_employee_registration_path, class: "dropdown-item")%>
+        <%= link_to 'Logout' , destroy_employee_session_path, method: :delete , class: "dropdown-item" %>
       <% else %>
-      <%= link_to 'Login', new_employee_session_path, class: "dropdown-item" %>  
+        <%= link_to 'Login', new_employee_session_path, class: "dropdown-item" %>  
       <% end %>
     </ul>
-    <% if employee_signed_in? %>
-    <ul class="nav navbar-nav ">
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle btn-outline-light" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Notifications</a>
-        <ul class="dropdown-menu notify-drop">
-          <div class="notify-drop-title">
-            <div class="row">
-              <div class="col-md-6 col-sm-6 col-xs-6">Notifications</div>
-              <div class="col-md-6 col-sm-6 col-xs-6 text-right"><a href="" class="rIcon allRead" data-tooltip="tooltip" data-placement="bottom" title="tümü okundu."><i class="fa fa-dot-circle-o"></i></a></div>
-            </div>
-          </div>
-          <div class="drop-content" id="notification">
-            <div class="col-md-3 col-sm-3 col-xs-3">
-              </div>
-          </div>
-          <% @alerts = Alert.all.where(employee_id: current_employee.id ) %>
-            <% @alerts.each do |notification| %>
-            <li>
-              <div class="col-md-3 col-sm-3 col-xs-3">
-                <%= notification.name %>
-              </div>
-            </li>
-            <% end %>
-        </ul>
-      </li>
-    </ul>
-    <% end %>
   </div>
 </nav>
-<% if employee_signed_in? %>
-<div id='employee_id' style="color: white;"><%= current_employee.id %></div>
-<% end %>

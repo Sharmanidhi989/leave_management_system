@@ -9,43 +9,39 @@ class Leave < ApplicationRecord
   validate :to_leave_date, on: :create
   validate :from_greater_than_to, on: :create
   
+  LEAVETYPES = %w[all_leaves approved canceled].freeze
+
   def from_greater_than_to
-    if from.present? && to.present? && from > to
-      errors.add(:from, "leave days cannot be negative.")
-    end
+    errors.add(:from, 'leave days cannot be negative.') if from.present? && to.present? && from > to
   end
 
   def from_leave_date
-    if from.present? && from <= Date.today
-      errors.add(:from, "Leave dates cannot be in the past")
-    end
+    errors.add(:from, 'Leave dates cannot be in the past') if from.present? && from <= Date.today
   end
 
   def to_leave_date
-    if  to.present? && to <= Date.today 
-      errors.add(:to, "Leave dates cannot be in the past")
-    end
+    errors.add(:to, 'Leave dates cannot be in the past')if  to.present? && to <= Date.today
   end
-  
+
   after_update do
-    if self.canceled?
-      days = (self.to - self.from).to_i + self.half_day
-      self.leave_quotum.count += days
-      self.leave_quotum.save!
+    if canceled?
+      days = (to - from).to_i + half_day
+      leave_quotum.count += days
+      leave_quotum.save!
     end
   end
-  
+
   before_save do
-    if self.approved?
-      days = (self.to - self.from).to_i + self.half_day
-      self.leave_quotum.count -= days
-      self.leave_quotum.save!
+    if approved?
+      days = (to - from).to_i + half_day
+      leave_quotum.count -= days
+      leave_quotum.save!
     end
   end
 
   after_initialize do
-    self.status = :pending if self.new_record?
+    status = :pending if new_record?
   end
 
-  enum status: [ :pending, :approved, :canceled ]
+  enum status: %w[pending approved canceled]
 end
